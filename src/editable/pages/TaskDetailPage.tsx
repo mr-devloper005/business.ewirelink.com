@@ -135,10 +135,8 @@ function BackLink({ task }: { task: TaskKey }) {
 
 function ArticleDetail({ task, post, related, comments }: { task: TaskKey; post: SitePost; related: SitePost[]; comments: Array<{ id: string; name: string; comment: string; createdAt: string }> }) {
   const images = getImages(post)
-  const published = post.publishedAt ? new Date(post.publishedAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : ''
   const sideStats = [
     { label: 'Category', value: categoryOf(post, 'Newsroom') },
-    { label: 'Published', value: published || 'Recently added' },
     { label: 'Story type', value: task === 'mediaDistribution' ? 'Media distribution' : 'Editorial feature' },
   ]
 
@@ -151,7 +149,6 @@ function ArticleDetail({ task, post, related, comments }: { task: TaskKey; post:
             <div>
               <div className="flex flex-wrap items-center gap-3 text-[11px] font-black uppercase tracking-[.18em] text-[var(--slot4-muted-text)]">
                 <span className="rounded-full bg-white/80 px-4 py-2">{categoryOf(post, 'News')}</span>
-                {published ? <time>{published}</time> : null}
               </div>
               <h1 className="mt-5 max-w-5xl text-5xl font-black leading-[0.94] tracking-[-0.065em] text-[var(--slot4-page-text)] sm:text-6xl lg:text-[5.1rem]">{post.title}</h1>
               <p className="mt-5 max-w-4xl text-lg leading-8 text-[var(--slot4-page-text)]/72 sm:text-xl">{summaryText(post)}</p>
@@ -472,7 +469,6 @@ function RelatedPanel({ task, post, related, compact = false }: { task: TaskKey;
           <div className="mt-0 grid gap-3 text-sm font-bold text-[var(--slot4-page-text)]/75">
             <p className="inline-flex items-center gap-2"><Tag className="h-4 w-4" /> Task: {taskConfig?.label || task}</p>
             <p className="inline-flex items-center gap-2"><CheckCircle2 className="h-4 w-4" /> Site: {SITE_CONFIG.name}</p>
-            {post.publishedAt ? <p>Published: {new Date(post.publishedAt).toLocaleDateString()}</p> : null}
           </div>
         </InfoCard>
       ) : null}
